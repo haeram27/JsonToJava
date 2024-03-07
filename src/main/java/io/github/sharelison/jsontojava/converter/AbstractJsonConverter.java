@@ -40,7 +40,7 @@ public abstract class AbstractJsonConverter implements JsonConverter{
         }
     }
 
-    private JavaClassBuilder convert(Map<String, JavaClassBuilder> javaClasses, String json, String objectName, String packageName, boolean withAnnotations) {
+    private JavaClassBuilder convert(Map<String, JavaClassBuilder> javaClasses, String json, String objectName, String packageName, boolean withAnnotations) throws JsonToJavaException {
         JavaClassBuilder javaClassBuilder = null;
 
         if(jsonTypeChecker().isObject(json)) {
