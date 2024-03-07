@@ -5,6 +5,7 @@ public enum SinglePropertyType implements PropertyType {
     NEW(null),
     STRING("String"),
     INTEGER("Integer"),
+    LONG("Long"),
     DOUBLE("Double"),
     BOOLEAN("boolean"),
     OBJECT("Object");
