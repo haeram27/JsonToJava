@@ -1,5 +1,14 @@
 package io.github.sharelison.jsontojava.converter;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import io.github.sharelison.jsontojava.converter.builder.JavaClassBuilder;
 import io.github.sharelison.jsontojava.converter.builder.enums.ComplexPropertyType;
 import io.github.sharelison.jsontojava.converter.builder.enums.PropertyType;
@@ -8,11 +17,6 @@ import io.github.sharelison.jsontojava.converter.builder.enums.util.PropertyType
 import io.github.sharelison.jsontojava.exception.JsonToJavaException;
 import io.github.sharelison.jsontojava.validator.JsonTypeChecker;
 import io.github.sharelison.jsontojava.validator.JsonValidator;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class AbstractJsonConverter implements JsonConverter{
 
@@ -43,6 +47,10 @@ public abstract class AbstractJsonConverter implements JsonConverter{
             javaClassBuilder = convertObject(javaClasses, new JSONObject(json), objectName, packageName, withAnnotations);
         } else if(jsonTypeChecker().isArray(json)){
             javaClassBuilder = convertArray(javaClasses, new JSONArray(json), objectName, packageName, withAnnotations);
+        }
+
+        if (javaClassBuilder == null) {
+            throw new JsonToJavaException("javaClassBuilder is null");
         }
 
         return javaClassBuilder;
