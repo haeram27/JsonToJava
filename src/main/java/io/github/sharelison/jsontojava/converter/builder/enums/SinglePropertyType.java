@@ -13,11 +13,11 @@ public enum SinglePropertyType implements PropertyType {
     private final String declareName;
 
     SinglePropertyType(String declareName) {
-       this.declareName = declareName;
+        this.declareName = declareName;
     }
 
     @Override
-    public String getDeclareName(){
+    public String getDeclareName() {
         return declareName;
     }
 }

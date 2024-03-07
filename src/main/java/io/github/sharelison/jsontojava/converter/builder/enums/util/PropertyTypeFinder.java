@@ -12,14 +12,14 @@ public final class PropertyTypeFinder {
     public static PropertyType getPropertyType(Object object, JsonTypeChecker jsonTypeChecker) {
         PropertyType propertyType = SinglePropertyType.NEW;
 
-        if(!jsonTypeChecker.isArray(object.toString())) {
-            if(object instanceof String) {
+        if (!jsonTypeChecker.isArray(object.toString())) {
+            if (object instanceof String) {
                 propertyType = SinglePropertyType.STRING;
-            } else if(object instanceof Integer) {
+            } else if (object instanceof Integer) {
                 propertyType = SinglePropertyType.INTEGER;
-            }  else if(object instanceof Long) {
+            } else if (object instanceof Long) {
                 propertyType = SinglePropertyType.LONG;
-            } else if(object instanceof Double) {
+            } else if (object instanceof Double) {
                 propertyType = SinglePropertyType.DOUBLE;
             } else if (object instanceof Boolean) {
                 propertyType = SinglePropertyType.BOOLEAN;

@@ -5,7 +5,8 @@ package io.github.sharelison.jsontojava.constants;
  */
 public final class JsonToJavaConstants {
 
-    private JsonToJavaConstants() {}
+    private JsonToJavaConstants() {
+    }
 
     /***
      * Default for with annotations

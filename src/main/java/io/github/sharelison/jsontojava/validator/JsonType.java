@@ -30,4 +30,3 @@ public class JsonType implements JsonTypeChecker {
         return success;
     }
 }
-

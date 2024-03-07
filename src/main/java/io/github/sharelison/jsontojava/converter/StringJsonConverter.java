@@ -1,14 +1,14 @@
 package io.github.sharelison.jsontojava.converter;
 
+import java.util.List;
+
 import io.github.sharelison.jsontojava.constants.JsonToJavaConstants;
 import io.github.sharelison.jsontojava.validator.InputJsonValidator;
 import io.github.sharelison.jsontojava.validator.JsonType;
 import io.github.sharelison.jsontojava.validator.JsonTypeChecker;
 import io.github.sharelison.jsontojava.validator.JsonValidator;
 
-import java.util.List;
-
-public class StringJsonConverter extends AbstractJsonConverter{
+public class StringJsonConverter extends AbstractJsonConverter {
 
     private final JsonValidator jsonValidator;
     private final JsonTypeChecker jsonTypeChecker;
@@ -37,7 +37,8 @@ public class StringJsonConverter extends AbstractJsonConverter{
      * @return a list of {@link JsonClassResult} objects
      */
     @Override
-    public List<JsonClassResult> convertToJava(String json, String objectName, String packageName, boolean withAnnotations) {
+    public List<JsonClassResult> convertToJava(String json, String objectName, String packageName,
+            boolean withAnnotations) {
         return convertJsonToJava(json, objectName, packageName, withAnnotations);
     }
 

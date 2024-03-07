@@ -1,10 +1,10 @@
 package io.github.sharelison.jsontojava.file;
 
-import io.github.sharelison.jsontojava.exception.JsonToJavaException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import io.github.sharelison.jsontojava.exception.JsonToJavaException;
 
 public class JavaFileSaver implements FileSaver {
 
@@ -15,8 +15,9 @@ public class JavaFileSaver implements FileSaver {
     public void saveJavaFile(String java, String objectName, String outputFolder) {
         try {
             File javaFile = new File(outputFolder, objectName + JAVA_FILE_EXTENSION);
-            boolean successfulCreation = javaFile.getParentFile().exists() ? javaFile.createNewFile() : (javaFile.getParentFile().mkdirs() && javaFile.createNewFile());
-            if(successfulCreation || javaFile.exists()){
+            boolean successfulCreation = javaFile.getParentFile().exists() ? javaFile.createNewFile()
+                    : (javaFile.getParentFile().mkdirs() && javaFile.createNewFile());
+            if (successfulCreation || javaFile.exists()) {
                 writeJavaToFile(javaFile, java);
             } else {
                 throw new JsonToJavaException(UNEXPECTED_ERR_MSG);
@@ -29,7 +30,7 @@ public class JavaFileSaver implements FileSaver {
     }
 
     private void writeJavaToFile(File javaFile, String java) throws IOException {
-        try(FileWriter fw = new FileWriter(javaFile)) {
+        try (FileWriter fw = new FileWriter(javaFile)) {
             fw.append(java);
         }
     }

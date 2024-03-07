@@ -1,10 +1,10 @@
 package io.github.sharelison.jsontojava.converter.builder;
 
+import java.util.HashSet;
+
 import io.github.sharelison.jsontojava.constants.JsonToJavaConstants;
 import io.github.sharelison.jsontojava.converter.builder.enums.ComplexPropertyType;
 import io.github.sharelison.jsontojava.exception.JsonToJavaException;
-
-import java.util.HashSet;
 
 public class JavaClassBuilder {
 
@@ -56,18 +56,19 @@ public class JavaClassBuilder {
         importedClasses = new HashSet<>();
         propertyKeyNames = new HashSet<>();
 
-        if(this.withAnnotations)
-           addImportStatement(JSONPROPERTY_IMPORT_STATEMENT);
+        if (this.withAnnotations)
+            addImportStatement(JSONPROPERTY_IMPORT_STATEMENT);
     }
 
     private void validClassNameAndPackageName(String className, String packagename) {
-        if(className == null || className.isEmpty() || packagename == null || packagename.isEmpty())
+        if (className == null || className.isEmpty() || packagename == null || packagename.isEmpty())
             throw new JsonToJavaException("Class name or package name is empty");
     }
 
     public String build() {
         String actualImportStatements = importStatements.length() == 0 ? "" : importStatements.toString() + NEW_LINE;
-        return String.format(javaClassDeclaration, actualImportStatements, properties.toString(), gettersAndSetters.toString());
+        return String.format(javaClassDeclaration, actualImportStatements, properties.toString(),
+                gettersAndSetters.toString());
     }
 
     public String getClassName() {
@@ -76,32 +77,33 @@ public class JavaClassBuilder {
 
     public void addProperty(String originalPropertyName, String declareName) {
         String propertyName = removeUnwantedCharacters(originalPropertyName);
-        if(!propertyKeyNames.contains(propertyName)) {
+        if (!propertyKeyNames.contains(propertyName)) {
             appendAnnotations(originalPropertyName);
             properties
-                .append(BIG_SPACE)
-                .append("private ")
-                .append(declareName)
-                .append(SPACE)
-                .append(propertyName)
-                .append(END_STATEMENT)
-                .append(NEW_LINE);
+                    .append(BIG_SPACE)
+                    .append("private ")
+                    .append(declareName)
+                    .append(SPACE)
+                    .append(propertyName)
+                    .append(END_STATEMENT)
+                    .append(NEW_LINE);
             addGettersAndSetters(propertyName, declareName);
             propertyKeyNames.add(propertyName);
         }
     }
 
     private void appendAnnotations(String originalPropertyName) {
-        if(this.withAnnotations) {
+        if (this.withAnnotations) {
             properties
                     .append(BIG_SPACE)
-                    .append("@JsonProperty(\"").append(originalPropertyName).append("\"").append(METHOD_CLOSED).append(NEW_LINE);
+                    .append("@JsonProperty(\"").append(originalPropertyName).append("\"").append(METHOD_CLOSED)
+                    .append(NEW_LINE);
         }
     }
 
     public void addProperty(String originalPropertyName, ComplexPropertyType complexPropertyType, String genericType) {
         String propertyName = removeUnwantedCharacters(originalPropertyName);
-        if(!propertyKeyNames.contains(propertyName)) {
+        if (!propertyKeyNames.contains(propertyName)) {
             String declareName = String.format(complexPropertyType.getDeclareName(), genericType);
             appendAnnotations(originalPropertyName);
             properties
@@ -118,7 +120,7 @@ public class JavaClassBuilder {
     }
 
     public void addImportStatement(String importStatement) {
-        if(!importedClasses.contains(importStatement)) {
+        if (!importedClasses.contains(importStatement)) {
             importStatements.append("import ").append(importStatement).append(END_STATEMENT).append(NEW_LINE);
             importedClasses.add(importStatement);
         }
@@ -176,15 +178,15 @@ public class JavaClassBuilder {
                 .append(DOUBLE_NEW_LINE);
     }
 
-    private String removeUnwantedCharacters(String javaIdentifier){
+    private String removeUnwantedCharacters(String javaIdentifier) {
         StringBuilder validJavaIdentifier = new StringBuilder();
 
         char[] givenClassChars = javaIdentifier.toCharArray();
-        for(int i = 0; i < givenClassChars.length; i++){
+        for (int i = 0; i < givenClassChars.length; i++) {
             char character = givenClassChars[i];
-            if(Character.isJavaIdentifierPart(character)) {
-                if(i == 0) {
-                    if(Character.isJavaIdentifierStart(character)) {
+            if (Character.isJavaIdentifierPart(character)) {
+                if (i == 0) {
+                    if (Character.isJavaIdentifierStart(character)) {
                         validJavaIdentifier.append(character);
                     }
                 } else {
@@ -193,7 +195,7 @@ public class JavaClassBuilder {
             }
         }
 
-        if(validJavaIdentifier.length() == 0){
+        if (validJavaIdentifier.length() == 0) {
             throw new JsonToJavaException("No valid characters in class name or property name");
         }
 
